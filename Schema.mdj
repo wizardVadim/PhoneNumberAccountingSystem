@@ -929,14 +929,149 @@
 									"model": {
 										"$ref": "AAAAAAGdE9oJS+y1ZBs="
 									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGYcNStA=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFghsyIToaMo="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -89,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role1: Оператор call-центра",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGYcQAd8=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFgjdfoULE1g="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -74,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role2: Главное меню",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGYcTKOE=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFgj2JoUq374="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -59,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role3: Список физ. лиц",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGocWPDk=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFgkX74VJ//w="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -44,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role4: Пользователь",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGocZP9s=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFglYEYVtI10="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -29,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role5: Сгруппированный справочник с количеством номеров",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGoccaUk=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFgp784Wr6yo="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": -14,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role6: Номер телефона",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGdFnXpGocfO5c=",
+											"_parent": {
+												"$ref": "AAAAAAGdE9oJS+y9CU8="
+											},
+											"model": {
+												"$ref": "AAAAAAGdFgwHdYZGdq8="
+											},
+											"fillColor": "#FFEAAD",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 117,
+											"top": 1,
+											"width": 375.755859375,
+											"height": 13,
+											"text": "+Role7: Физическое лицо",
+											"horizontalAlignment": 0
+										}
+									],
 									"visible": false,
 									"fillColor": "#FFEAAD",
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 112,
 									"top": -94,
-									"width": 10,
-									"height": 10
+									"width": 385.755859375,
+									"height": 113
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -21367,9 +21502,9 @@
 											},
 											"font": "Arial;13;1",
 											"parentStyle": true,
-											"left": 149,
+											"left": 189,
 											"top": 798,
-											"width": 1455,
+											"width": 1415,
 											"height": 13,
 											"text": "Интерфейс"
 										},
@@ -21403,9 +21538,9 @@
 									],
 									"font": "Arial;13;0",
 									"parentStyle": true,
-									"left": 144,
+									"left": 184,
 									"top": 791,
-									"width": 1465,
+									"width": 1425,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGdFAN8hVyQx4w="
@@ -21447,10 +21582,10 @@
 							"font": "Arial;13;0",
 							"parentStyle": false,
 							"containerChangeable": true,
-							"left": 144,
+							"left": 184,
 							"top": 776,
-							"width": 1464,
-							"height": 720,
+							"width": 1424,
+							"height": 680,
 							"nameCompartment": {
 								"$ref": "AAAAAAGdFAN8hVyPKt8="
 							}
@@ -24533,7 +24668,7 @@
 											"top": 32,
 											"width": 111.0205078125,
 											"height": 13,
-											"text": "(from Logical View)"
+											"text": "(from Интерфейс)"
 										},
 										{
 											"_type": "LabelView",
