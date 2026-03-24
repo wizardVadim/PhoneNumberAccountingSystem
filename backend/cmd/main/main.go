@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"phone-accounting-system/internal/database"
+	"phone-accounting-system/internal/repository"
 
 	_ "github.com/lib/pq"
 )
@@ -29,15 +30,12 @@ func main() {
 		return
 	}
 
-	var result string 
+	repo := repository.UserRepo{DB: db.DB}
 
-	err = db.QueryRow("Select login from \"user\" LIMIT 1").Scan(&result)
+	arr := repo.GetAllUsers()
 
-	if err != nil {
-		fmt.Println("Select error: %w", err)
-		return
+	for _, v := range arr {
+		fmt.Println(v)
 	}
-
-	fmt.Println(result)
 
 }
