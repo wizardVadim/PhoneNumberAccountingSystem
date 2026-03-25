@@ -50,7 +50,7 @@ func (repo *UserRepo) GetAllUsers() []models.User {
 
 func (repo *UserRepo) SetUser(user models.User) error {
 
-	result, err := repo.DB.Exec(`UPDATE user 
+	result, err := repo.DB.Exec(`UPDATE "user" 
 		SET 
 		login = $2,
 		role_id = $3,
@@ -84,7 +84,7 @@ func (repo *UserRepo) CreateUser(user models.User) (int64, error) {
 
 	var id int64
 
-	err := repo.DB.QueryRow("INSERT INTO user (login, password, role_id ) VALUES ($1, crypt($2, gen_salt('bf')), $3) RETURNING id",
+	err := repo.DB.QueryRow("INSERT INTO \"user\" (login, password, role_id ) VALUES ($1, crypt($2, gen_salt('bf')), $3) RETURNING id",
 		user.Login,
 		user.Password,
 		user.RoleId,
@@ -101,7 +101,7 @@ func (repo *UserRepo) CreateUser(user models.User) (int64, error) {
 
 func (repo *UserRepo) RemoveUser(user models.User) error {
 
-	result, err := repo.DB.Exec("DELETE FROM user WHERE id = $1", user.Id)
+	result, err := repo.DB.Exec("DELETE FROM \"user\" WHERE id = $1", user.Id)
 
 	if err != nil {
 		return fmt.Errorf("UserRepo@RemoveUser: Error %w", err)
@@ -142,8 +142,11 @@ func (repo *UserRepo) GetUserById(id int64) *models.User {
 func (repo *UserRepo) Auth(user *models.User) bool {
 	var idVal int64
 	var dbPassword string
+	var roleId int64
 
-	err := repo.DB.QueryRow(`SELECT id, password FROM "user" WHERE login = $1`, user.Login).Scan(&idVal, &dbPassword)
+	err := repo.DB.QueryRow(`SELECT u.id, u.password, ur.id FROM "user" as u inner join user_role as ur on u.role_id = ur.id WHERE login = $1`,
+		user.Login).Scan(&idVal, &dbPassword, &roleId)
+
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return false
@@ -159,5 +162,7 @@ func (repo *UserRepo) Auth(user *models.User) bool {
 	}
 
 	user.Id = idVal
+	user.RoleId = roleId
+	fmt.Println("ROle id", roleId)
 	return true
 }

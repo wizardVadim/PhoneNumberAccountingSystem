@@ -36,7 +36,7 @@ func (h *UserHandler) Init() {
 
 func (h *UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -49,7 +49,7 @@ func (h *UserHandler) GetUsers(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) GetUserById(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -74,7 +74,7 @@ func (h *UserHandler) GetUserById(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -108,7 +108,7 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -145,7 +145,7 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -174,7 +174,7 @@ func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) GetAllRoles(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -187,7 +187,7 @@ func (h *UserHandler) GetAllRoles(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) GetRoleById(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -212,7 +212,7 @@ func (h *UserHandler) GetRoleById(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -240,7 +240,7 @@ func (h *UserHandler) CreateRole(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}
@@ -269,7 +269,7 @@ func (h *UserHandler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 
 func (h *UserHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 {
+	if user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin only", http.StatusForbidden)
 		return
 	}

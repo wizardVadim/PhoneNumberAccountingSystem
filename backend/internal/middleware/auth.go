@@ -34,6 +34,7 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			user := &models.User{
 				Id:    int64(claims["user_id"].(float64)),
 				Login: claims["login"].(string),
+				RoleId: int64(claims["role_id"].(float64)),
 			}
 			ctx := context.WithValue(r.Context(), UserKey, user)
 			r = r.WithContext(ctx)

@@ -1,6 +1,5 @@
 package handlers
 
-
 import (
 	"encoding/json"
 	"net/http"
@@ -10,12 +9,10 @@ import (
 	"strconv"
 )
 
-
 type PersonHandler struct {
 	PersonRepo *repository.PhysicalPersonRepo
 	Mux        *http.ServeMux
 }
-
 
 func (h *PersonHandler) Init() {
 	h.Mux.HandleFunc("GET /api/persons", middleware.AuthMiddleware(h.GetAllPersons))
@@ -27,39 +24,21 @@ func (h *PersonHandler) Init() {
 	h.Mux.HandleFunc("GET /api/persons/phone-stats", middleware.AuthMiddleware(h.GetPersonsPhoneStats))
 }
 
-
 func (h *PersonHandler) GetAllPersons(w http.ResponseWriter, r *http.Request) {
-	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
-		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
-		return
-	}
 
 	persons := h.PersonRepo.GetAllPhysicalPersons()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(persons)
 }
 
-
 func (h *PersonHandler) GetAllPersonsSorted(w http.ResponseWriter, r *http.Request) {
-	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
-		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
-		return
-	}
 
 	persons := h.PersonRepo.GetAllPhysicalPersonsSortedName()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(persons)
 }
 
-
 func (h *PersonHandler) GetPersonById(w http.ResponseWriter, r *http.Request) {
-	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
-		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
-		return
-	}
 
 	idStr := r.PathValue("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -78,10 +57,9 @@ func (h *PersonHandler) GetPersonById(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(person)
 }
 
-
 func (h *PersonHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
+	if user.RoleId != 1 && user.RoleId != 3 {
 		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
 		return
 	}
@@ -119,10 +97,9 @@ func (h *PersonHandler) CreatePerson(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]int64{"id": id})
 }
 
-
 func (h *PersonHandler) UpdatePerson(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
+	if user.RoleId != 1 && user.RoleId != 3 {
 		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
 		return
 	}
@@ -162,10 +139,9 @@ func (h *PersonHandler) UpdatePerson(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]bool{"success": true})
 }
 
-
 func (h *PersonHandler) DeletePerson(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
+	if user.RoleId != 1 && user.RoleId != 3 {
 		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
 		return
 	}
@@ -190,13 +166,7 @@ func (h *PersonHandler) DeletePerson(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]bool{"success": true})
 }
 
-
 func (h *PersonHandler) GetPersonsPhoneStats(w http.ResponseWriter, r *http.Request) {
-	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 2 {
-		http.Error(w, "Forbidden: admin or MFC worker only", http.StatusForbidden)
-		return
-	}
 
 	stats := h.PersonRepo.GetPhysicalPersonsPhoneNumbersQuantity()
 	w.Header().Set("Content-Type", "application/json")

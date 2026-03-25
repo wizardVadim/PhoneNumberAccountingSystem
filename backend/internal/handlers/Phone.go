@@ -36,7 +36,7 @@ func (h *PhoneHandler) Init() {
 
 func (h *PhoneHandler) GetAllPhones(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -49,7 +49,7 @@ func (h *PhoneHandler) GetAllPhones(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) GetPhoneById(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -74,7 +74,7 @@ func (h *PhoneHandler) GetPhoneById(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) CreatePhone(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -111,7 +111,7 @@ func (h *PhoneHandler) CreatePhone(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) UpdatePhone(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -150,7 +150,7 @@ func (h *PhoneHandler) UpdatePhone(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) DeletePhone(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -178,7 +178,7 @@ func (h *PhoneHandler) DeletePhone(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) GetPhonesByPerson(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -198,7 +198,7 @@ func (h *PhoneHandler) GetPhonesByPerson(w http.ResponseWriter, r *http.Request)
 
 func (h *PhoneHandler) GetAllPhoneTypes(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -211,7 +211,7 @@ func (h *PhoneHandler) GetAllPhoneTypes(w http.ResponseWriter, r *http.Request) 
 
 func (h *PhoneHandler) GetPhoneTypeById(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -236,7 +236,7 @@ func (h *PhoneHandler) GetPhoneTypeById(w http.ResponseWriter, r *http.Request) 
 
 func (h *PhoneHandler) CreatePhoneType(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -264,7 +264,7 @@ func (h *PhoneHandler) CreatePhoneType(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) UpdatePhoneType(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}
@@ -293,7 +293,7 @@ func (h *PhoneHandler) UpdatePhoneType(w http.ResponseWriter, r *http.Request) {
 
 func (h *PhoneHandler) DeletePhoneType(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(middleware.UserKey).(*models.User)
-	if user.RoleId != 0 && user.RoleId != 1 {
+	if user.RoleId != 2 && user.RoleId != 1 {
 		http.Error(w, "Forbidden: admin or operator only", http.StatusForbidden)
 		return
 	}

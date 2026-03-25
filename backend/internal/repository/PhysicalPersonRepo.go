@@ -1,17 +1,14 @@
 package repository
 
-
 import (
 	"database/sql"
 	"fmt"
 	"phone-accounting-system/internal/models"
 )
 
-
 type PhysicalPersonRepo struct {
 	DB *sql.DB
 }
-
 
 func (repo *PhysicalPersonRepo) GetAllPhysicalPersons() []models.PhysicalPerson {
 	rows, err := repo.DB.Query("SELECT id, city, person_address, first_name, last_name, second_name, born_year FROM physical_person")
@@ -67,7 +64,6 @@ func (repo *PhysicalPersonRepo) GetAllPhysicalPersons() []models.PhysicalPerson 
 	return list
 }
 
-
 func (repo *PhysicalPersonRepo) SetPhysicalPerson(person models.PhysicalPerson) error {
 	result, err := repo.DB.Exec(`UPDATE physical_person 
 		SET 
@@ -104,7 +100,6 @@ func (repo *PhysicalPersonRepo) SetPhysicalPerson(person models.PhysicalPerson) 
 	return nil
 }
 
-
 func (repo *PhysicalPersonRepo) CreatePhysicalPerson(person models.PhysicalPerson) (int64, error) {
 	var id int64
 
@@ -126,7 +121,6 @@ func (repo *PhysicalPersonRepo) CreatePhysicalPerson(person models.PhysicalPerso
 	return id, nil
 }
 
-
 func (repo *PhysicalPersonRepo) RemovePhysicalPerson(person models.PhysicalPerson) error {
 	result, err := repo.DB.Exec("DELETE FROM physical_person WHERE id = $1", person.Id)
 
@@ -145,7 +139,6 @@ func (repo *PhysicalPersonRepo) RemovePhysicalPerson(person models.PhysicalPerso
 
 	return nil
 }
-
 
 func (repo *PhysicalPersonRepo) GetAllPhysicalPersonsSortedName() []models.PhysicalPerson {
 	rows, err := repo.DB.Query(`SELECT id, city, person_address, first_name, last_name, second_name, born_year FROM physical_person
@@ -203,8 +196,7 @@ func (repo *PhysicalPersonRepo) GetAllPhysicalPersonsSortedName() []models.Physi
 	return list
 }
 
-
-func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[models.PhysicalPerson]int {
+func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() []models.PhysicalPerson {
 
 	rows, err := repo.DB.Query(`SELECT 
 		COUNT(pn.id) as phone_number_quantity,
@@ -229,7 +221,7 @@ func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[mod
 	}
 	defer rows.Close()
 
-	list := make(map[models.PhysicalPerson]int)
+	list := make([]models.PhysicalPerson, 0, 100)
 
 	for rows.Next() {
 		var id int64
@@ -247,13 +239,14 @@ func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[mod
 		}
 
 		obj := models.PhysicalPerson{
-			Id:         id,
-			City:       city,
-			Address:    &address.String,
-			FirstName:  firstName,
-			LastName:   lastName,
-			SecondName: &secondName.String,
-			BornYear:   &bornYear.Int16,
+			Id:                  id,
+			City:                city,
+			Address:             &address.String,
+			FirstName:           firstName,
+			LastName:            lastName,
+			SecondName:          &secondName.String,
+			BornYear:            &bornYear.Int16,
+			PhoneNumberQuantity: phoneNumberQuantity,
 		}
 
 		if !address.Valid {
@@ -266,7 +259,7 @@ func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[mod
 			obj.BornYear = nil
 		}
 
-		list[obj] = phoneNumberQuantity
+		list = append(list, obj)
 
 	}
 
@@ -277,7 +270,6 @@ func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[mod
 	return list
 
 }
-
 
 func (repo *PhysicalPersonRepo) GetPhysicalPersonById(id int64) *models.PhysicalPerson {
 	var personId int64

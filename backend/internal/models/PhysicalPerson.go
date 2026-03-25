@@ -8,4 +8,5 @@ type PhysicalPerson struct {
 	LastName   string	`json:"last_name"`
 	SecondName *string	`json:"second_name"`
 	BornYear   *int16	`json:"born_year"`
+	PhoneNumberQuantity int `json:"phone_number_quantity"`
 }

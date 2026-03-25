@@ -1,0 +1,51 @@
+@import './base.css';
+@import "tailwindcss";
+
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+.header {
+  padding: 20px 0;
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  padding: 10px 40px;
+}
+
+body {
+  font-family: "Shantell Sans", cursive !important;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+p {
+  font-optical-sizing: auto;
+  font-size: 16px;
+}
+
+.auth-form {
+  width: 50%;
+  justify-content: center;
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+}
