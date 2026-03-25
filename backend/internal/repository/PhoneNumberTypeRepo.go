@@ -1,14 +1,17 @@
 package repository
 
+
 import (
 	"database/sql"
 	"fmt"
 	"phone-accounting-system/internal/models"
 )
 
+
 type PhoneNumberTypeRepo struct {
 	DB *sql.DB
 }
+
 
 func (repo *PhoneNumberTypeRepo) GetAllPhoneNumberTypes() []models.PhoneNumberType {
 
@@ -46,6 +49,7 @@ func (repo *PhoneNumberTypeRepo) GetAllPhoneNumberTypes() []models.PhoneNumberTy
 
 }
 
+
 func (repo *PhoneNumberTypeRepo) SetPhoneNumberType(pType models.PhoneNumberType) error {
 
 	result, err := repo.DB.Exec("UPDATE phone_number_type SET type_name = $2 WHERE id = $1", pType.Id, pType.TypeName)
@@ -68,6 +72,7 @@ func (repo *PhoneNumberTypeRepo) SetPhoneNumberType(pType models.PhoneNumberType
 
 }
 
+
 func (repo *PhoneNumberTypeRepo) CreatePhoneNumberType(pType models.PhoneNumberType) (int64, error) {
 
 	var id int64
@@ -82,6 +87,7 @@ func (repo *PhoneNumberTypeRepo) CreatePhoneNumberType(pType models.PhoneNumberT
 	return id, nil
 
 }
+
 
 func (repo *PhoneNumberTypeRepo) RemovePhoneNumberType(pType models.PhoneNumberType) error {
 
@@ -102,4 +108,22 @@ func (repo *PhoneNumberTypeRepo) RemovePhoneNumberType(pType models.PhoneNumberT
 
 	return nil
 
+}
+
+
+func (repo *PhoneNumberTypeRepo) GetPhoneNumberTypeById(id int64) *models.PhoneNumberType {
+	var typeId int64
+	var typeName string
+
+	err := repo.DB.QueryRow("SELECT id, type_name FROM phone_number_type WHERE id = $1", id).Scan(&typeId, &typeName)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil
+		}
+		fmt.Printf("PhoneNumberTypeRepo@GetPhoneNumberTypeById: Error %v\n", err)
+		return nil
+	}
+
+	return &models.PhoneNumberType{Id: typeId, TypeName: typeName}
 }

@@ -277,3 +277,48 @@ func (repo *PhysicalPersonRepo) GetPhysicalPersonsPhoneNumbersQuantity() map[mod
 	return list
 
 }
+
+
+func (repo *PhysicalPersonRepo) GetPhysicalPersonById(id int64) *models.PhysicalPerson {
+	var personId int64
+	var city string
+	var address sql.NullString
+	var firstName string
+	var lastName string
+	var secondName sql.NullString
+	var bornYear sql.NullInt16
+
+	err := repo.DB.QueryRow(`SELECT id, city, person_address, first_name, last_name, second_name, born_year 
+		FROM physical_person WHERE id = $1`, id).Scan(
+		&personId, &city, &address, &firstName, &lastName, &secondName, &bornYear)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil
+		}
+		fmt.Printf("PhysicalPersonRepo@GetPhysicalPersonById: Error %v\n", err)
+		return nil
+	}
+
+	obj := &models.PhysicalPerson{
+		Id:         personId,
+		City:       city,
+		Address:    &address.String,
+		FirstName:  firstName,
+		LastName:   lastName,
+		SecondName: &secondName.String,
+		BornYear:   &bornYear.Int16,
+	}
+
+	if !address.Valid {
+		obj.Address = nil
+	}
+	if !secondName.Valid {
+		obj.SecondName = nil
+	}
+	if !bornYear.Valid {
+		obj.BornYear = nil
+	}
+
+	return obj
+}

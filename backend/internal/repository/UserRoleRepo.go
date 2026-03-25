@@ -1,14 +1,17 @@
 package repository
 
+
 import (
 	"database/sql"
 	"fmt"
 	"phone-accounting-system/internal/models"
 )
 
+
 type UserRoleRepo struct {
 	DB *sql.DB
 }
+
 
 func (repo *UserRoleRepo) GetAllRoles() []models.UserRole {
 
@@ -46,6 +49,7 @@ func (repo *UserRoleRepo) GetAllRoles() []models.UserRole {
 
 }
 
+
 func (repo *UserRoleRepo) SetUserRole(role models.UserRole) error {
 
 	result, err := repo.DB.Exec("UPDATE user_role SET role_name = $2 WHERE id = $1", role.Id, role.RoleName)
@@ -68,6 +72,7 @@ func (repo *UserRoleRepo) SetUserRole(role models.UserRole) error {
 
 }
 
+
 func (repo *UserRoleRepo) CreateUserRole(role models.UserRole) (int64, error) {
 
 	var id int64
@@ -82,6 +87,7 @@ func (repo *UserRoleRepo) CreateUserRole(role models.UserRole) (int64, error) {
 	return id, nil
 
 }
+
 
 func (repo *UserRoleRepo) RemoveUserRole(role models.UserRole) error {
 
@@ -101,5 +107,24 @@ func (repo *UserRoleRepo) RemoveUserRole(role models.UserRole) error {
 	}
 
 	return nil
+
+}
+
+
+func (repo *UserRoleRepo) GetRoleById(id int64) *models.UserRole {
+
+	var roleId int64
+	var role string
+
+	err := repo.DB.QueryRow("SELECT id, role_name FROM user_role WHERE id = $1", id).Scan(&roleId, &role)
+
+	if err != nil {
+		fmt.Println("UserRoleRepo@GetRoleById: Error %w", err)
+		return nil
+	}
+
+	ur := models.UserRole{Id: roleId, RoleName: role}
+
+	return &ur
 
 }

@@ -183,7 +183,6 @@ func (repo *PhoneNumberRepo) GetUsersPhoneNumbers(user models.User) []models.Pho
 		WHERE pp.id = $1`,
 
 		user.Id,
-
 	)
 
 	if err != nil {
@@ -249,4 +248,38 @@ func (repo *PhoneNumberRepo) GetUsersPhoneNumbers(user models.User) []models.Pho
 
 	return list
 
+}
+
+func (repo *PhoneNumberRepo) GetPhoneNumberById(id int64) *models.PhoneNumber {
+	var phoneId int64
+	var value string
+	var personId int64
+	var phoneNumberTypeId int64
+	var comment sql.NullString
+
+	err := repo.DB.QueryRow(`SELECT id, phone_number_value, person_id, phone_number_type_id, comment 
+		FROM phone_number WHERE id = $1`, id).Scan(
+		&phoneId, &value, &personId, &phoneNumberTypeId, &comment)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil
+		}
+		fmt.Printf("PhoneNumberRepo@GetPhoneNumberById: Error %v\n", err)
+		return nil
+	}
+
+	obj := &models.PhoneNumber{
+		Id:                phoneId,
+		PhoneNumberValue:  value,
+		PersonId:          personId,
+		PhoneNumberTypeId: phoneNumberTypeId,
+		Comment:           &comment.String,
+	}
+
+	if !comment.Valid {
+		obj.Comment = nil
+	}
+
+	return obj
 }

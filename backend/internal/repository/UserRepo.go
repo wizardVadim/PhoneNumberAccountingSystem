@@ -119,3 +119,45 @@ func (repo *UserRepo) RemoveUser(user models.User) error {
 	return nil
 
 }
+
+func (repo *UserRepo) GetUserById(id int64) *models.User {
+	var idVal int64
+	var login string
+	var password string
+	var roleId int64
+
+	err := repo.DB.QueryRow(`SELECT id, login, password, role_id FROM "user" WHERE id = $1`, id).Scan(&idVal, &login, &password, &roleId)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil
+		}
+		fmt.Printf("UserRepo@GetUserById: Error %v\n", err)
+		return nil
+	}
+
+	return &models.User{Id: idVal, Login: login, Password: password, RoleId: roleId}
+}
+
+func (repo *UserRepo) Auth(user *models.User) bool {
+	var idVal int64
+	var dbPassword string
+
+	err := repo.DB.QueryRow(`SELECT id, password FROM "user" WHERE login = $1`, user.Login).Scan(&idVal, &dbPassword)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false
+		}
+		fmt.Printf("UserRepo@Auth: Error %v\n", err)
+		return false
+	}
+
+	var isValid bool
+	err = repo.DB.QueryRow(`SELECT crypt($1, $2) = $2`, user.Password, dbPassword).Scan(&isValid)
+	if err != nil || !isValid {
+		return false
+	}
+
+	user.Id = idVal
+	return true
+}
